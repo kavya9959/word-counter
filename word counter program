@@ -1,0 +1,56 @@
+import tkinter as tk
+from tkinter import messagebox
+
+def count_words(input_text):
+    """
+    Count the number of words in the input text.
+    
+    Args:
+    input_text (str): The text to count words in.
+
+    Returns:
+    int: The number of words in the input text.
+    """
+    # Split the input text into words using whitespace as the delimiter
+    words = input_text.split()
+    # Return the number of words
+    return len(words)
+
+def on_count_button_click():
+    """
+    Event handler for the count button click.
+    """
+    # Get the text from the input_text widget
+    user_input = input_text.get("1.0", tk.END)
+    
+    # Check if the input is empty
+    if not user_input.strip():
+        messagebox.showerror("Error", "No input provided. Please enter a valid sentence or paragraph.")
+    else:
+        # Count the number of words in the user input
+        word_count = count_words(user_input)
+        # Display the word count in the output label
+        output_label.config(text=f"Word Count: {word_count}")
+
+# Create the main window
+root = tk.Tk()
+root.title("Word Counter")
+
+# Create a label for the text widget
+input_label = tk.Label(root, text="Please enter a sentence or paragraph:")
+input_label.pack(padx=10, pady=5)
+
+# Create a text widget for user input
+input_text = tk.Text(root, wrap=tk.WORD, width=50, height=10)
+input_text.pack(padx=10, pady=5)
+
+# Create a button to trigger the word count
+count_button = tk.Button(root, text="Count Words", command=on_count_button_click)
+count_button.pack(pady=10)
+
+# Create a label to display the word count
+output_label = tk.Label(root, text="Word Count: ")
+output_label.pack(pady=10)
+
+# Run the Tkinter event loop
+root.mainloop()
